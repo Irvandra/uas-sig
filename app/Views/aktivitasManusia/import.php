@@ -25,10 +25,6 @@ $submit = [
 <div class="row">
     <div class="col-md-12">
         <div class="card">
-            <!-- <div class="card-header card-header-primary">
-                <h4 class="card-title">Tambah Data2</h4>
-                <p class="card-category">Menu Tambah Data2</p>
-            </div> -->
             <div class="card-body">
                 <?= form_open_multipart('AktivitasManusia/import') ?>
                 <div class="form-group">

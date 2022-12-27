@@ -55,9 +55,6 @@ class Maps extends BaseController
                 $nilaiMax = $aktivitasManusiamodel->select('MAX(intensitas) AS intensitas')->where('id_master_data', $idMasterData)->first()->intensitas;
             }
         }
- 
-        // d($nilaiMax);
-        // exit();
 
         $masterDataModel = new \App\Models\MasterDataModel();
         $masterData = $masterDataModel->find($idMasterData);
