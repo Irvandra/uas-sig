@@ -68,7 +68,7 @@
         <li class="nav-item">
           <a class="nav-link text-white " href="<?= site_url('SumberDayaAlam/index') ?>">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons opacity-10">bar_chart</i>
+              <i class="material-icons opacity-10">nature</i>
             </div>
             <span class="nav-link-text ms-1">Sumber Daya Alam</span>
           </a>
@@ -76,7 +76,7 @@
         <li class="nav-item">
           <a class="nav-link text-white " href="<?= site_url('KondisiLingkungan/index') ?>">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons opacity-10">bar_chart</i>
+              <i class="material-icons opacity-10">cloud</i>
             </div>
             <span class="nav-link-text ms-1">Kondisi Lingkungan</span>
           </a>
@@ -84,7 +84,7 @@
         <li class="nav-item">
           <a class="nav-link text-white " href="<?= site_url('AktivitasManusia/index') ?>">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons opacity-10">bar_chart</i>
+              <i class="material-icons opacity-10">people</i>
             </div>
             <span class="nav-link-text ms-1">Aktivitas Manusia</span>
           </a>
