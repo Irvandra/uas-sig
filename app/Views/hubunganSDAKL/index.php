@@ -9,7 +9,7 @@
                 <p class="card-category">Menu Data2</p>
             </div> -->
             <div class="card-body">
-                <a href="<?= site_url('AktivitasManusia/import') ?>" class="btn btn-primary">Tambah Data</a>
+                <a href="<?= site_url('HubunganSDAKL/import') ?>" class="btn btn-primary">Tambah Data</a>
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <thead class="text-primary">
@@ -17,9 +17,8 @@
                                 <th>No</th>
                                 <th>Nama Master Data</th>
                                 <th>Nama Wilayah</th>
-                                <th>Jenis Aktivitas</th>
-                                <th>Intensitas</th>
-                                <th>Dampak Potensial</th>
+                                <th>Dampak SDA-Lingkungan</th>
+                                <th>Pengelolaan SDA-Lingkungan</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -28,9 +27,8 @@
                                     <td><?= $key+1 ?></td>
                                     <td><?= $value->nama ?></td>
                                     <td><?= $value->nama_wilayah ?></td>
-                                    <td><?= $value->jenis_aktivitas ?></td>
-                                    <td><?= $value->intensitas ?></td>
-                                    <td><?= $value->dampak_potensial ?></td>
+                                    <td><?= $value->dampak_SDAKL ?></td>
+                                    <td><?= $value->pengelolaan_SDAKL ?></td>
                                 </tr>
                             <?php endforeach ?>
                         </tbody>

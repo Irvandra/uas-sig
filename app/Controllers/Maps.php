@@ -11,6 +11,7 @@ class Maps extends BaseController
         $kondisiLingkunganmodel = new \App\Models\KondisiLingkunganModel();
         $aktivitasManusiamodel = new \App\Models\AktivitasManusiaModel();
         $sumberDayaAlamModel = new \App\Models\SumberDayaAlamModel();
+        $hubunganSDAKLModel = new \App\Models\HubunganSDAKLModel();
 
         $fileName = base_url('maps/map.geojson');
         // dd($fileName);
@@ -38,6 +39,9 @@ class Maps extends BaseController
             $aktivitasManusia = $aktivitasManusiamodel->where('id_master_data', $idMasterData)
                     ->where('kode_wilayah', $kode_wilayah)
                     ->first();
+            $hubunganSDAKL = $hubunganSDAKLModel->where('id_master_data', $idMasterData)
+                    ->where('kode_wilayah', $kode_wilayah)
+                    ->first();
 
             $nilaiMax = 0;
             if ($sumberDayaAlam) {
@@ -55,6 +59,9 @@ class Maps extends BaseController
                 $features[$index]->properties->nilai = $aktivitasManusia->intensitas;
                 $features[$index]->properties->dampak_potensial = $aktivitasManusia->dampak_potensial;
                 $nilaiMax = $aktivitasManusiamodel->select('MAX(intensitas) AS intensitas')->where('id_master_data', $idMasterData)->first()->intensitas;
+            } else if ($hubunganSDAKL) {
+                $features[$index]->properties->dampak_SDAKL = $hubunganSDAKL->dampak_SDAKL;
+                $features[$index]->properties->pengelolaan_SDAKL = $hubunganSDAKL->pengelolaan_SDAKL;
             }
         }
  
@@ -79,6 +86,7 @@ class Maps extends BaseController
             'sumberDayaAlam' => $sumberDayaAlam,
             'kondisiLingkungan' => $kondisiLingkungan,
             'aktivitasManusia' => $aktivitasManusia,
+            'hubunganSDAKL' => $hubunganSDAKL,
             'features' => $features,
             'nilaiMax' => $nilaiMax,
             'masterData' => $masterData,

@@ -102,6 +102,7 @@
     var sumberDayaAlam = <?= json_encode($sumberDayaAlam) ?>;
     var kondisiLingkungan = <?= json_encode($kondisiLingkungan) ?>;
     var aktivitasManusia = <?= json_encode($aktivitasManusia) ?>;
+    var hubunganSDAKL = <?= json_encode($hubunganSDAKL) ?>;
 
     if (sumberDayaAlam) {
         function onEachFeature(feature, layer){
@@ -127,8 +128,15 @@
                 mouseout: resetHighlight,
             });
         }
+    } else if (hubunganSDAKL) {
+        function onEachFeature(feature, layer){
+            layer.bindPopup("<h4>Hubungan Sumber Daya Alam - Kondisi Lingkungan </h4><br>"+"Kecamatan : "+feature.properties.nama+"<br>"+"Dampak : "+feature.properties.dampak_SDAKL+"<br>Pengelolaan : "+feature.properties.pengelolaan_SDAKL);
+            layer.on({
+                mouseover: highlightFeature,
+                mouseout: resetHighlight,
+            });
+        }
     }
-
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
         attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
@@ -141,7 +149,7 @@
             style : style,
             onEachFeature : onEachFeature
         }).addTo(map);
-    } else if (kondisiLingkungan) {
+    } else if (kondisiLingkungan || hubunganSDAKL) {
         var geojson = L.geoJson(features, {
             onEachFeature : onEachFeature
         }).addTo(map);
@@ -193,6 +201,12 @@
         info.update = function (props) {
             this._div.innerHTML = '<h4><?= $masterData->nama ?></h4>' +  (props ?
                 '<b>' + props.nama + '</b><br/>' + props.nilai + '(000) ribu jiwa<br/>' + props.jenis_aktivitas + '<br/>' + props.nilai
+                : 'Hover di atas wilayah');
+        };
+    } else if (hubunganSDAKL) {
+        info.update = function (props) {
+            this._div.innerHTML = '<h4><?= $masterData->nama ?></h4>' +  (props ?
+                '<b>' + props.nama + '</b><br/>' + props.dampak_SDAKL + '(000) ribu jiwa<br/>' + props.pengelolaan_SDAKL 
                 : 'Hover di atas wilayah');
         };
     } 
