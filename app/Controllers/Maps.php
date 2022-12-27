@@ -64,9 +64,6 @@ class Maps extends BaseController
                 $features[$index]->properties->pengelolaan_SDAKL = $hubunganSDAKL->pengelolaan_SDAKL;
             }
         }
- 
-        // d($nilaiMax);
-        // exit();
 
         $masterDataModel = new \App\Models\MasterDataModel();
         $masterData = $masterDataModel->find($idMasterData);

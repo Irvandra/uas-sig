@@ -4,10 +4,6 @@
 <div class="row">
     <div class="col-md-12">
         <div class="card">
-            <!-- <div class="card-header card-header-primary">
-                <h4 class="card-title">Data</h4>
-                <p class="card-category">Menu Data</p>
-            </div> -->
             <div class="card-body">
                 <a href="<?= site_url('KondisiLingkungan/import') ?>" class="btn btn-primary">Tambah Data</a>
                 <div class="table-responsive">

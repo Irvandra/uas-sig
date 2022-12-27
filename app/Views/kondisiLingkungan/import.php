@@ -25,10 +25,6 @@ $submit = [
 <div class="row">
     <div class="col-md-12">
         <div class="card">
-            <!-- <div class="card-header card-header-primary">
-                <h4 class="card-title">Tambah Data</h4>
-                <p class="card-category">Menu Tambah Data</p>
-            </div> -->
             <div class="card-body">
                 <?= form_open_multipart('KondisiLingkungan/import') ?>
                 <div class="form-group">

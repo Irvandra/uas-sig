@@ -4,10 +4,6 @@
 <div class="row">
     <div class="col-md-12">
         <div class="card">
-            <!-- <div class="card-header card-header-primary">
-                <h4 class="card-title">Data2</h4>
-                <p class="card-category">Menu Data2</p>
-            </div> -->
             <div class="card-body">
                 <a href="<?= site_url('AktivitasManusia/import') ?>" class="btn btn-primary">Tambah Data</a>
                 <div class="table-responsive">
