@@ -20,8 +20,8 @@ class HubunganSDAAM extends BaseController
             ->get();
 
         return view('hubunganSDAAM/index', [
-            'title' => 'Aktivitas Manusia',
-            'category' => 'Menu Aktivitas Manusia',
+            'title' => 'Hubungan Sumber Daya Alam - Aktivitas Manusia',
+            'category' => 'Menu Hubungan Sumber Daya Alam - Aktivitas Manusia',
             'data' => $data,
         ]);
     }
@@ -77,8 +77,8 @@ class HubunganSDAAM extends BaseController
             return redirect()->to(site_url('HubunganSDAAM/index'));
         }
         return view('hubunganSDAAM/import', [
-            'title' => 'Tambah Aktivitas Manusia',
-            'category' => 'Menu Tambah Aktivitas Manusia',
+            'title' => 'Tambah Data Hubungan Sumber Daya Alam - Aktivitas Manusia',
+            'category' => 'Menu Tambah Data Hubungan Sumber Daya Alam - Aktivitas Manusia',
         ]);
     }
 }

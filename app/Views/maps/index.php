@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="<?= base_url('leaflet/leaflet.css'); ?>">
     <style>
         #maps {
-            height: 500px;
+            height: 700px;
         }
         .info {
             padding: 6px 8px;
@@ -77,15 +77,29 @@
 
     var map = L.map('maps').setView({ lat : -5.3971, lon : 105.2668}, 11);
 
-    function getColor(d) {
-        return d > (nilaiMax/8)*7 ? '#800026' :
-        d > (nilaiMax/8)*6 ? '#BD0026' :
-        d > (nilaiMax/8)*5 ? '#E31A1C' :
-        d > (nilaiMax/8)*4 ? '#FC4E2A' :
-        d > (nilaiMax/8)*3 ? '#FDBD3C' :
-        d > (nilaiMax/8)*2 ? '#FEB24C' :
-        d > (nilaiMax/8)*1 ? '#FED976' :
-                            '#FFEDA0'
+    var sumberDayaAlam = <?= json_encode($sumberDayaAlam) ?>;
+    var kondisiLingkungan = <?= json_encode($kondisiLingkungan) ?>;
+    var aktivitasManusia = <?= json_encode($aktivitasManusia) ?>;
+    var hubunganSDAKL = <?= json_encode($hubunganSDAKL) ?>;
+    var hubunganSDAAM = <?= json_encode($hubunganSDAAM) ?>;
+
+    if (sumberDayaAlam) {
+        function getColor(d) {
+            return d > (nilaiMax/8)*7 ? '#800026' :
+            d > (nilaiMax/8)*6 ? '#BD0026' :
+            d > (nilaiMax/8)*5 ? '#E31A1C' :
+            d > (nilaiMax/8)*4 ? '#FC4E2A' :
+            d > (nilaiMax/8)*3 ? '#FDBD3C' :
+            d > (nilaiMax/8)*2 ? '#FEB24C' :
+            d > (nilaiMax/8)*1 ? '#FED976' :
+                                '#FFEDA0'
+        }
+    } else if (aktivitasManusia) {
+        function getColor(d) {
+            return d == 3 ? '#800026' :
+            d == 2 ? '#E31A1C' :
+                    '#FDBD3C'
+        }
     }
     
     function style(feature) {
@@ -98,12 +112,6 @@
         fillColor : getColor(parseInt(feature.properties.nilai))
        }; 
     }
-
-    var sumberDayaAlam = <?= json_encode($sumberDayaAlam) ?>;
-    var kondisiLingkungan = <?= json_encode($kondisiLingkungan) ?>;
-    var aktivitasManusia = <?= json_encode($aktivitasManusia) ?>;
-    var hubunganSDAKL = <?= json_encode($hubunganSDAKL) ?>;
-    var hubunganSDAAM = <?= json_encode($hubunganSDAAM) ?>;
 
     if (sumberDayaAlam) {
         function onEachFeature(feature, layer){
@@ -146,6 +154,7 @@
             });
         }
     }
+
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
         attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
@@ -203,53 +212,67 @@
     }else if (kondisiLingkungan) {
         info.update = function (props) {
             this._div.innerHTML = '<h4><?= $masterData->nama ?></h4>' +  (props ?
-                '<b>' + props.nama + '</b><br/>' + props.keanekaragaman_hayati
+                '<b>' + props.nama + '</b><br/>' + props.kualitas_air + '<br/>' + props.kualitas_udara +'<br/>' + props.keanekaragaman_hayati
                 : 'Hover di atas wilayah');
         };
     } else if (aktivitasManusia) {
         info.update = function (props) {
             this._div.innerHTML = '<h4><?= $masterData->nama ?></h4>' +  (props ?
-                '<b>' + props.nama + '</b><br/>' + props.nilai + '(000) ribu jiwa<br/>' + props.jenis_aktivitas + '<br/>' + props.nilai
+                '<b>' + props.nama + '</b><br/>' + props.jenis_aktivitas + '<br/>' + props.nilai + '<br/>' + props.dampak_potensial
                 : 'Hover di atas wilayah');
         };
     } else if (hubunganSDAKL) {
         info.update = function (props) {
             this._div.innerHTML = '<h4><?= $masterData->nama ?></h4>' +  (props ?
-                '<b>' + props.nama + '</b><br/>' + props.dampak_SDAKL + '(000) ribu jiwa<br/>' + props.pengelolaan_SDAKL 
+                '<b>' + props.nama + '</b><br/>' + props.dampak_SDAKL + '<br/>' + props.pengelolaan_SDAKL 
                 : 'Hover di atas wilayah');
         };
     } else if (hubunganSDAAM) {
         info.update = function (props) {
             this._div.innerHTML = '<h4><?= $masterData->nama ?></h4>' +  (props ?
-                '<b>' + props.nama + '</b><br/>' + props.dampak_SDAAM + '(000) ribu jiwa<br/>' + props.pengelolaan_SDAAM 
+                '<b>' + props.nama + '</b><br/>' + props.dampak_SDAAM + '<br/>' + props.pengelolaan_SDAAM 
                 : 'Hover di atas wilayah');
         };
     } 
-
 
     info.addTo(map);
 
     if (sumberDayaAlam || aktivitasManusia) {
         var legend = L.control({position: 'bottomright'});
+        if (sumberDayaAlam) {
+            legend.onAdd = function (map) {
 
-        legend.onAdd = function (map) {
+                var div = L.DomUtil.create('div', 'info legend'),
+                    grades = [0, (nilaiMax/8)*1, (nilaiMax/8)*2, (nilaiMax/8)*3, (nilaiMax/8)*4, (nilaiMax/8)*5, (nilaiMax/8)*6, (nilaiMax/8)*7],
+                    labels = [];
 
-            var div = L.DomUtil.create('div', 'info legend'),
-                grades = [0, (nilaiMax/8)*1, (nilaiMax/8)*2, (nilaiMax/8)*3, (nilaiMax/8)*4, (nilaiMax/8)*5, (nilaiMax/8)*6, (nilaiMax/8)*7],
-                labels = [];
+                // loop through our density intervals and generate a label with a colored square for each interval
+                for (var i = 0; i < grades.length; i++) {
+                    div.innerHTML +=
+                        '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
+                        grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+                }
 
-            // loop through our density intervals and generate a label with a colored square for each interval
-            for (var i = 0; i < grades.length; i++) {
-                div.innerHTML +=
-                    '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
-                    grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
-            }
+                return div;
+            };
+        } else if (aktivitasManusia) {
+            legend.onAdd = function (map) {
 
-            return div;
-        };
+                var div = L.DomUtil.create('div', 'info legend'),
+                    grades = [1, 2, 3],
+                    labels = ['Rendah', 'Sedang', 'Tinggi'];
 
+                // loop through our density intervals and generate a label with a colored square for each interval
+                for (var i = 0; i < grades.length; i++) {
+                    div.innerHTML +=
+                        '<i style="background:' + getColor(grades[i]) + '"></i> ' +
+                        labels[i] + (grades[i + 1] ? '<br>' : '');
+                }
+
+                return div;
+            };
+        }
         legend.addTo(map);
     }
-
 </script>
 <?= $this->endSection(); ?>
