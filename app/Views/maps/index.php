@@ -16,6 +16,7 @@
 
 <?= $this->section('script'); ?>
 <script>
+    var features = <?= json_encode($features) ?>;
     var map = L.map('maps').setView({ lat : -5.3971, lon : 105.2668}, 11);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -24,5 +25,7 @@
     }).addTo(map);
 
     L.marker({ lat : -5.3971, lon : 105.2668}).bindPopup('Bandar Lampung').addTo(map);
+
+    var geojson = L.geoJson(features).addTo(map);
 </script>
 <?= $this->endSection(); ?>
