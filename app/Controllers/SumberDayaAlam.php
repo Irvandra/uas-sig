@@ -78,8 +78,8 @@ class SumberDayaAlam extends BaseController
             return redirect()->to(site_url('SumberDayaAlam/index'));
         }
         return view('sumberDayaAlam/import', [
-            'title' => 'Tambah Sumber Daya Alam',
-            'category' => 'Menu Tambah Sumber Daya Alam',
+            'title' => 'Tambah Data Sumber Daya Alam',
+            'category' => 'Menu Tambah Data Sumber Daya Alam',
         ]);
     }
 }

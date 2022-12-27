@@ -82,6 +82,5 @@ class AktivitasManusia extends BaseController
             'category' => 'Menu Tambah Data Aktivitas Manusia',
         ]);
     }
-    //--------------------------------------------------------------------
 
 }
