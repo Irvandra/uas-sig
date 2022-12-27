@@ -15,8 +15,6 @@ class Maps extends BaseController
         $hubunganSDAAMModel = new \App\Models\HubunganSDAAMModel();
 
         $fileName = base_url('maps/map.geojson');
-        // dd($fileName);
-        // exit();
         $file = file_get_contents($fileName);
         $file = json_decode($file);
 
@@ -46,6 +44,7 @@ class Maps extends BaseController
             $hubunganSDAAM = $hubunganSDAAMModel->where('id_master_data', $idMasterData)
                     ->where('kode_wilayah', $kode_wilayah)
                     ->first();
+
             $nilaiMax = 0;
             if ($sumberDayaAlam) {
                 $features[$index]->properties->jenis_sumber_daya = $sumberDayaAlam->jenis_sumber_daya;
@@ -56,7 +55,6 @@ class Maps extends BaseController
                 $features[$index]->properties->kualitas_air = $kondisiLingkungan->kualitas_air;
                 $features[$index]->properties->kualitas_udara = $kondisiLingkungan->kualitas_udara;
                 $features[$index]->properties->keanekaragaman_hayati = $kondisiLingkungan->keanekaragaman_hayati;
-                
             } else if ($aktivitasManusia) {
                 $features[$index]->properties->jenis_aktivitas = $aktivitasManusia->jenis_aktivitas;
                 $features[$index]->properties->nilai = $aktivitasManusia->intensitas;

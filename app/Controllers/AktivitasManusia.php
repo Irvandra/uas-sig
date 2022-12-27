@@ -20,7 +20,7 @@ class AktivitasManusia extends BaseController
             ->get();
 
         return view('aktivitasManusia/index', [
-            'title' => 'AktivitasManusia',
+            'title' => 'Aktivitas Manusia',
             'category' => 'Menu Aktivitas Manusia',
             'data' => $data,
         ]);

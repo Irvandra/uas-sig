@@ -82,6 +82,4 @@ class KondisiLingkungan extends BaseController
             'category' => 'Menu Tambah Data Kondisi Lingkungan',
         ]);
     }
-    //--------------------------------------------------------------------
-
 }

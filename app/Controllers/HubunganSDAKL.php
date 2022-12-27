@@ -76,8 +76,8 @@ class HubunganSDAKL extends BaseController
             return redirect()->to(site_url('HubunganSDAKL/index'));
         }
         return view('hubunganSDAKL/import', [
-            'title' => 'Hubungan Sumber Daya Alam - Kondisi Lingkungan',
-            'category' => 'Menu Hubungan Sumber Daya Alam - Kondisi Lingkungan',
+            'title' => 'Tambah Data Hubungan Sumber Daya Alam - Kondisi Lingkungan',
+            'category' => 'Menu Tambah Data Hubungan Sumber Daya Alam - Kondisi Lingkungan',
         ]);
     }
 
