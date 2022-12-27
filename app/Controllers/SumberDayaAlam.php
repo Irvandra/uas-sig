@@ -51,10 +51,14 @@ class SumberDayaAlam extends BaseController
                 while (!feof($file)) {
                     $column = fgetcsv($file, 1000, ";");
 
-                    $kode_wilayah = $column[0];
-                    $jenis_sumber_daya = $column[1];
-                    $kondisi = $column[2];
-                    $ketersediaan = $column[3];
+                    if (empty($column)) {
+                        $column = null;
+                    }else {
+                        $kode_wilayah = $column[0];
+                        $jenis_sumber_daya = $column[1];
+                        $kondisi = $column[2];
+                        $ketersediaan = $column[3];
+                    }
 
                     $row = [
                         'id_master_data' => $idMasterData,
