@@ -13,6 +13,8 @@ class Maps extends BaseController
         $sumberDayaAlamModel = new \App\Models\SumberDayaAlamModel();
 
         $fileName = base_url('maps/map.geojson');
+        // dd($fileName);
+        // exit();
         $file = file_get_contents($fileName);
         $file = json_decode($file);
 
